@@ -27,7 +27,7 @@ class Server {
 
 
     listen(){
-        this.app.listen(this.port, () => { 
+        this.app.listen(this.port, () => {
             console.log('listenner on port ${this.port}');
         });
     };
@@ -45,12 +45,12 @@ class Server {
     constructor() {
         this.app = express();
         this.port = config.port as string;
-        
+
         /*Metodos*/
         this.routes();
         this.dbConnnect();
         this.middleware();
-    };   
+    };
 
 
 }
