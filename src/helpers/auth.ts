@@ -1,3 +1,4 @@
+import config from "../config";
 import { Player } from "../models/Player";
 import {sign} from "jsonwebtoken";
 
@@ -28,10 +29,22 @@ class Auth {
         });
 
         const savePlayer = await player.save();
+        const jwt = sign({id: player.id}, config.jwtSecret as string, {
+            expiresIn: 60 * 15 // Expires in 24 hours (
+        });
+
+        return jwt;
     }
 
     async login() {
-        
+
+        const playerDB = await Player.findOne({email: this.email});
+
+        if (!playerDB) {
+            return 'Wrong enail'
+        }
+
+        const validPassword = await Player.comparePassword(this.password, playerDB.password);
     }
 
 }
