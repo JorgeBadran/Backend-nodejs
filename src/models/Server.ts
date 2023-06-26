@@ -4,6 +4,7 @@ import routerGames from '../routes/diceGame.routes';
 import routerError404 from "../routes/error404.routes";
 import cors from "cors"
 
+import RouterAuth from "../routes/auth.routes";
 import { connectDB } from "../db/config";
 
 /*Clases */
@@ -22,6 +23,7 @@ class Server {
 /*Metodos */
     routes() {
         this.app.use(this.path.games, routerGames);
+        this.app.use(this.path.auth, RouterAuth)
         this.app.use(this.path.error404, routerError404)
     };
 
@@ -47,9 +49,9 @@ class Server {
         this.port = config.port as string;
 
         /*Metodos*/
+        this.middleware();
         this.routes();
         this.dbConnnect();
-        this.middleware();
     };
 
 

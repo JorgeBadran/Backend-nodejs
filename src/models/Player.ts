@@ -43,8 +43,8 @@ const PlayerSchama = new Schema({
     playHistory_: [Object]
 },
     {
-        versionKey: false, 
-}); 
+        versionKey: false,
+});
 
     PlayerSchama.static("encryptPassword",async (password: string) => {
         const salt = await bcryptjs.genSalt(10);

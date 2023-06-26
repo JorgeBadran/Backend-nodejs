@@ -41,10 +41,24 @@ class Auth {
         const playerDB = await Player.findOne({email: this.email});
 
         if (!playerDB) {
-            return 'Wrong enail'
+            return 'Wrong email'
         }
 
         const validPassword = await Player.comparePassword(this.password, playerDB.password);
+
+        if(!validPassword) {
+            return 'Wrong password!!'
+        }
+
+        const jwt = sign({id: playerDB.id}, config.jwtSecret as string,
+        {
+            expiresIn: '4H'
+        });
+
+        return jwt;
     }
 
-}
+};
+
+export default Auth;
+
